@@ -1,0 +1,32 @@
+---
+apiVersion: apps/v1beta2
+kind: Deployment
+metadata:
+    name: ldap-client
+    labels:
+        app: ldap-client
+spec:
+    replicas: 1
+    selector:
+        matchLabels:
+            app: ldap-client
+    template:
+        metadata:
+          name: ldap-client
+          labels:
+              app: ldap-client
+        spec:
+          containers:
+            - name: ldap-client
+              image: ldap-client
+              env:
+                - name: CONF_BASEDN
+                  valueFrom:
+                      configMapKeyRef:
+                          name: ldap-config
+                          key: config_basedn
+                - name: CONF_ROOTPW
+                  valueFrom:
+                      secretKeyRef:
+                          name: ldap-pass
+                          key: ldap-passwd
