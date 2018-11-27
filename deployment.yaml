@@ -18,7 +18,7 @@ spec:
         spec:
           containers:
             - name: ldap-client
-              image: ldap-client
+              image: knoppi/ldap-client
               env:
                 - name: CONF_BASEDN
                   valueFrom:
